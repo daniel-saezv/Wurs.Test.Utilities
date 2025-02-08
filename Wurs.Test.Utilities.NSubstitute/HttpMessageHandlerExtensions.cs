@@ -1,7 +1,7 @@
 ﻿using NSubstitute;
 using System.Reflection;
 using Wurs.Test.Utilities.Constants.Reflection;
-using Wurs.Test.Utilities.Http;
+using Wurs.Test.Utilities.Helpers.Http;
 
 namespace Wurs.Test.Utilities.NSubstitute;
 internal static class HttpMessageHandlerExtensions

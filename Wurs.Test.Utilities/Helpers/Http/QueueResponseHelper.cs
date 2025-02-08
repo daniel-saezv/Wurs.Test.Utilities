@@ -1,4 +1,4 @@
-﻿namespace Wurs.Test.Utilities.Http;
+﻿namespace Wurs.Test.Utilities.Helpers.Http;
 internal static class QueueResponseHelper
 {
     public static HttpResponseMessage DequeueResponse(Queue<object> queue)
