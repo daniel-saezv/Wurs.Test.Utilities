@@ -18,13 +18,20 @@ To install the library, add the following package reference to your project:
 ### Configuring Serialization Options
 
 You can configure the default JSON serialization options for all tests by setting the `DefaultJsonSerializerOptions` property in a static constructor or a test fixture.
-
+```
 using System.Text.Json; using Wurs.Test.Utilities;
-public class TestSetup { static TestSetup() { HttpMessageHandlerContext.DefaultJsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true }; } }
+public class TestClass 
+{ 
+    static TestClass() 
+    { 
+        HttpMessageHandlerContext.DefaultJsonSerializerOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
+    } 
+}
+```
 
 
 ### Using HttpMessageHandlerContext
-
+Read specific readme file for your mocking library.
 
 
 ## License
