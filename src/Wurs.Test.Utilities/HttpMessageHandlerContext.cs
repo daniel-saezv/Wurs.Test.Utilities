@@ -2,13 +2,18 @@
 using System.Text.Json;
 
 namespace Wurs.Test.Utilities;
+
 public sealed class HttpMessageHandlerContext
 {
     private readonly Lock _syncRoot = new();
     private readonly List<HttpRequestRule> _rules = [];
     private readonly HttpRequestRule _defaultRule = new(static _ => true);
     private readonly DefaultRuleBuilder _defaultRuleBuilder;
-    private static readonly JsonSerializerOptions _defaultJsonSerializerOptions = new();
+    public static JsonSerializerOptions DefaultJsonSerializerOptions
+    {
+        get;
+        set => field = value ?? throw new ArgumentNullException(nameof(value));
+    } = new();
 
     public HttpMessageHandlerContext(HttpMessageHandler handler)
     {
@@ -102,7 +107,7 @@ public sealed class HttpMessageHandlerContext
         {
             return content is Exception exception
                 ? AddException(exception)
-                : AddResponse(statusCode, new StringContent(JsonSerializer.Serialize(content, _defaultJsonSerializerOptions)));
+                : AddResponse(statusCode, new StringContent(JsonSerializer.Serialize(content, DefaultJsonSerializerOptions)));
         }
 
         private HttpMessageHandlerContext AddException(Exception exception)
