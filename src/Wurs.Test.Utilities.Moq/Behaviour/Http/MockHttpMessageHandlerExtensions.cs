@@ -15,7 +15,7 @@ internal static class MockHttpMessageHandlerExtensions
             .Setup<Task<HttpResponseMessage>>(MethodNames.SendAsyncMethodName, ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync((HttpRequestMessage request, CancellationToken cancellationToken) =>
             {
-                return QueueResponseHelper.DequeueResponse(context.Queue);
+                return QueueResponseHelper.DequeueResponse(context, request);
             });
 
         return context;

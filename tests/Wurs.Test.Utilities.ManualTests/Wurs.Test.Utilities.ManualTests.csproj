@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MSTest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Wurs.Test.Utilities\Wurs.Test.Utilities.csproj" />
+    <ProjectReference Include="..\..\src\Wurs.Test.Utilities.Moq\Wurs.Test.Utilities.Moq.csproj" />
+    <ProjectReference Include="..\..\src\Wurs.Test.Utilities.NSubstitute\Wurs.Test.Utilities.NSubstitute.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+</Project>

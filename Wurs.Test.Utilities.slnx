@@ -1,0 +1,19 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.Props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Wurs.Test.Utilities.Moq/Wurs.Test.Utilities.Moq.csproj" />
+    <Project Path="src/Wurs.Test.Utilities.NSubstitute/Wurs.Test.Utilities.NSubstitute.csproj" />
+    <Project Path="src/Wurs.Test.Utilities/Wurs.Test.Utilities.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Wurs.Test.Utilities.ManualTests/Wurs.Test.Utilities.ManualTests.csproj" />
+  </Folder>
+</Solution>

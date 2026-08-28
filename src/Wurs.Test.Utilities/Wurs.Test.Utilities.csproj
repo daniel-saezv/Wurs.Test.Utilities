@@ -9,4 +9,10 @@
 		</AssemblyAttribute>
 	</ItemGroup>
 
+	<ItemGroup>
+		<Compile Remove="Wurs.Test.Utilities.ManualTests\**\*.cs" />
+		<EmbeddedResource Remove="Wurs.Test.Utilities.ManualTests\**\*" />
+		<None Remove="Wurs.Test.Utilities.ManualTests\**\*" />
+	</ItemGroup>
+
 </Project>

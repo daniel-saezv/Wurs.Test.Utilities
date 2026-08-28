@@ -19,10 +19,10 @@ internal static class HttpMessageHandlerExtensions
         var context = new HttpMessageHandlerContext(handler);
 
         SendAsyncMethod
-            .Invoke(context.Handler, [null, null])
+            .Invoke(handler, [null, null])
             .ReturnsForAnyArgs(x =>
             {
-                return QueueResponseHelper.DequeueResponse(context.Queue);
+                return QueueResponseHelper.DequeueResponse(context, x.ArgAt<HttpRequestMessage>(0));
             });
 
         return context;
