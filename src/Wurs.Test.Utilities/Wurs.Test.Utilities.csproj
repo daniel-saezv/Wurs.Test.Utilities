@@ -33,4 +33,8 @@
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" Link="README.md" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Abstractions\" />
+	</ItemGroup>
+
 </Project>

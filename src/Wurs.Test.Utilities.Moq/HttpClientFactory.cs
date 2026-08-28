@@ -19,8 +19,27 @@ public class HttpClientFactory : HttpClientFactoryBuilderBase<HttpClientFactory,
         return _factory;
     }
 
+    public HttpClientFactory VerifyClientRequested(string clientName, int expectedCalls = 1)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientName);
+
+        if (expectedCalls < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(expectedCalls));
+        }
+
+        _factory.Verify(cf => cf.CreateClient(clientName), Times.Exactly(expectedCalls));
+        return this;
+    }
+
+    public HttpClientFactory VerifyAllConfiguredClientsRequested()
+    {
+        _factory.VerifyAll();
+        return this;
+    }
+
     protected override void ConfigureClient(Mock<IHttpClientFactory> factory, string clientName, HttpClient client)
     {
-        factory.Setup(cf => cf.CreateClient(clientName)).Returns(client);
+        factory.Setup(cf => cf.CreateClient(clientName)).Returns(client).Verifiable();
     }
 }

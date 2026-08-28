@@ -17,6 +17,7 @@ public abstract class HttpMessageHandlerFrameworkTestsBase<THandler>
     protected abstract HttpMessageHandler ExtractMessageHandler(THandler handler);
     protected abstract HttpMessageHandlerContext SetupContext(THandler handler);
     protected abstract HttpClient CreateConfiguredClient(THandler handler, string clientName);
+    protected abstract void VerifyConfiguredMocks();
     protected abstract string ClientName { get; }
     protected abstract string RequestPath { get; }
     protected abstract string ExpectedBaseAddress { get; }
@@ -32,6 +33,7 @@ public abstract class HttpMessageHandlerFrameworkTestsBase<THandler>
         var client = CreateConfiguredClient(Handler, ClientName);
         var response = await client.GetAsync(RequestPath, TestContext.CancellationToken);
         var content = await response.Content.ReadAsStringAsync(TestContext.CancellationToken);
+        VerifyConfiguredMocks();
 
         Assert.AreEqual(ExpectedBaseAddress, client.BaseAddress?.ToString());
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);

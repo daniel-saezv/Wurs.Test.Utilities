@@ -19,6 +19,19 @@ public class HttpClientFactory : HttpClientFactoryBuilderBase<HttpClientFactory,
         return _factory;
     }
 
+    public HttpClientFactory VerifyClientRequested(string clientName, int expectedCalls = 1)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientName);
+
+        if (expectedCalls < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(expectedCalls));
+        }
+
+        _factory.Received(expectedCalls).CreateClient(clientName);
+        return this;
+    }
+
     protected override void ConfigureClient(IHttpClientFactory factory, string clientName, HttpClient client)
     {
         factory.CreateClient(clientName).Returns(client);

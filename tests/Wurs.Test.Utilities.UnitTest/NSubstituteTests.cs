@@ -6,6 +6,8 @@ namespace Wurs.Test.Utilities.UnitTest;
 [TestClass]
 public sealed class NSubstituteTests : HttpMessageHandlerFrameworkTestsBase<HttpMessageHandler>
 {
+    private HttpClientFactory? _factory;
+
     protected override HttpMessageHandler CreateHandler()
     {
         return Substitute.For<HttpMessageHandler>();
@@ -23,11 +25,15 @@ public sealed class NSubstituteTests : HttpMessageHandlerFrameworkTestsBase<Http
 
     protected override HttpClient CreateConfiguredClient(HttpMessageHandler handler, string clientName)
     {
-        var factory = new HttpClientFactory()
-            .AddClient(handler, clientName)
-            .Create();
+        _factory = new HttpClientFactory()
+            .AddClient(handler, clientName);
 
-        return factory.CreateClient(clientName);
+        return _factory.Create().CreateClient(clientName);
+    }
+
+    protected override void VerifyConfiguredMocks()
+    {
+        this.Verify();
     }
 
     protected override string ClientName => "inventory";

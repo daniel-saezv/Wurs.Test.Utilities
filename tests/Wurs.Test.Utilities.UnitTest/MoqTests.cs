@@ -6,6 +6,8 @@ namespace Wurs.Test.Utilities.UnitTest;
 [TestClass]
 public sealed class MoqTests : HttpMessageHandlerFrameworkTestsBase<Mock<HttpMessageHandler>>
 {
+    private HttpClientFactory? _factory;
+
     protected override Mock<HttpMessageHandler> CreateHandler()
     {
         return new Mock<HttpMessageHandler>();
@@ -23,16 +25,22 @@ public sealed class MoqTests : HttpMessageHandlerFrameworkTestsBase<Mock<HttpMes
 
     protected override HttpClient CreateConfiguredClient(Mock<HttpMessageHandler> handler, string clientName)
     {
-        var factory = new HttpClientFactory()
+        _factory = new HttpClientFactory()
             .AddClient(handler.Object, "https://example.test", client =>
             {
                 client.Timeout = TimeSpan.FromSeconds(3);
-            }, clientName)
-            .Create();
+            }, clientName);
 
-        var client = factory.Object.CreateClient(clientName);
+        var builtFactory = _factory.Create();
+
+        var client = builtFactory.Object.CreateClient(clientName);
         Assert.AreEqual(TimeSpan.FromSeconds(3), client.Timeout);
         return client;
+    }
+
+    protected override void VerifyConfiguredMocks()
+    {
+        this.Verify();
     }
 
     protected override string ClientName => "orders";
