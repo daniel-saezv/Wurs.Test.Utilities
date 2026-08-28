@@ -1,7 +1,7 @@
 using Moq;
 using Wurs.Test.Utilities.Moq;
 
-namespace Wurs.Test.Utilities.ManualTests;
+namespace Wurs.Test.Utilities.UnitTest;
 
 [TestClass]
 public sealed class MoqTests : HttpMessageHandlerFrameworkTestsBase<Mock<HttpMessageHandler>>

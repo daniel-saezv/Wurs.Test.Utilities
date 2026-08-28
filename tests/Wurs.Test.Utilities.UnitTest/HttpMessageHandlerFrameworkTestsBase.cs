@@ -1,7 +1,7 @@
 using System.Net;
 using System.Text;
 
-namespace Wurs.Test.Utilities.ManualTests;
+namespace Wurs.Test.Utilities.UnitTest;
 
 public abstract class HttpMessageHandlerFrameworkTestsBase<THandler>
 {

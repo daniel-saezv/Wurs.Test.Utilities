@@ -24,9 +24,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Remove="Wurs.Test.Utilities.ManualTests\**\*.cs" />
-		<EmbeddedResource Remove="Wurs.Test.Utilities.ManualTests\**\*" />
-		<None Remove="Wurs.Test.Utilities.ManualTests\**\*" />
+		<Compile Remove="Wurs.Test.Utilities.UnitTest\**\*.cs" />
+		<EmbeddedResource Remove="Wurs.Test.Utilities.UnitTest\**\*" />
+		<None Remove="Wurs.Test.Utilities.UnitTest\**\*" />
 	</ItemGroup>
 
 	<ItemGroup>

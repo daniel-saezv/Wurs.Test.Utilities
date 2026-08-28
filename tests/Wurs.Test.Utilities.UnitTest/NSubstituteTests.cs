@@ -1,7 +1,7 @@
 using NSubstitute;
 using Wurs.Test.Utilities.NSubstitute;
 
-namespace Wurs.Test.Utilities.ManualTests;
+namespace Wurs.Test.Utilities.UnitTest;
 
 [TestClass]
 public sealed class NSubstituteTests : HttpMessageHandlerFrameworkTestsBase<HttpMessageHandler>

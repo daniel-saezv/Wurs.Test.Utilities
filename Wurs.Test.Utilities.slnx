@@ -14,6 +14,7 @@
     <Project Path="src/Wurs.Test.Utilities/Wurs.Test.Utilities.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Wurs.Test.Utilities.ManualTests/Wurs.Test.Utilities.ManualTests.csproj" />
+    <Project Path="tests/Wurs.Test.Utilities.UnitTest/Wurs.Test.Utilities.UnitTest.csproj" />
   </Folder>
 </Solution>
+
