@@ -25,7 +25,9 @@ public abstract class HttpMessageHandlerFrameworkTestsBase<THandler>
     [TestMethod]
     public async Task Creates_Configured_Client_And_Uses_SetupContext_Response()
     {
-        SetupContext(Handler).AddResponse(HttpStatusCode.OK, JsonContent($"{{\"source\":\"{ExpectedSource}\"}}"));
+        var sourceJson = $"{{\"source\":\"{ExpectedSource}\"}}";
+
+        SetupContext(Handler).AddResponse(HttpStatusCode.OK, JsonContent(sourceJson));
 
         var client = CreateConfiguredClient(Handler, ClientName);
         var response = await client.GetAsync(RequestPath, TestContext.CancellationToken);
@@ -33,16 +35,20 @@ public abstract class HttpMessageHandlerFrameworkTestsBase<THandler>
 
         Assert.AreEqual(ExpectedBaseAddress, client.BaseAddress?.ToString());
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        Assert.AreEqual($"{{\"source\":\"{ExpectedSource}\"}}", content);
+        Assert.AreEqual(sourceJson, content);
     }
 
     [TestMethod]
     public async Task SetupContext_Conditional_Responses_Can_Be_Chained()
     {
+        var conditionalPathA = "/a";
+        var conditionalPathB = "/b";
+        var conditionalFallbackPath = "/c";
+
         SetupContext(Handler)
-            .When(r => r.Method == HttpMethod.Get && r.RequestUri?.AbsolutePath == "/a")
+            .When(r => r.Method == HttpMethod.Get && r.RequestUri?.AbsolutePath == conditionalPathA)
             .AddResponse(HttpStatusCode.OK, JsonContent("{\"value\":\"A\"}"))
-            .When(r => r.Method == HttpMethod.Get && r.RequestUri?.AbsolutePath == "/b")
+            .When(r => r.Method == HttpMethod.Get && r.RequestUri?.AbsolutePath == conditionalPathB)
             .AddResponse(HttpStatusCode.OK, JsonContent("{\"value\":\"B\"}"))
             .AddResponse(HttpStatusCode.ServiceUnavailable);
 
@@ -51,11 +57,13 @@ public abstract class HttpMessageHandlerFrameworkTestsBase<THandler>
             BaseAddress = new Uri("https://stub.url.com")
         };
 
-        var responseA = await client.GetAsync("/a", TestContext.CancellationToken);
-        var responseB = await client.GetAsync("/b", TestContext.CancellationToken);
+        var responseA = await client.GetAsync(conditionalPathA, TestContext.CancellationToken);
+        var responseB = await client.GetAsync(conditionalPathB, TestContext.CancellationToken);
+        var responseFallback = await client.GetAsync(conditionalFallbackPath, TestContext.CancellationToken);
 
         Assert.AreEqual(HttpStatusCode.OK, responseA.StatusCode);
         Assert.AreEqual(HttpStatusCode.OK, responseB.StatusCode);
+        Assert.AreEqual(HttpStatusCode.ServiceUnavailable, responseFallback.StatusCode);
     }
 
     private static StringContent JsonContent(string json)
