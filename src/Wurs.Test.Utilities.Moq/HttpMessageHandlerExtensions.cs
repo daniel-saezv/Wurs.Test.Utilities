@@ -3,8 +3,8 @@ using Moq.Protected;
 using Wurs.Test.Utilities.Constants.Reflection;
 using Wurs.Test.Utilities.Helpers.Http;
 
-namespace Wurs.Test.Utilities.Moq.Behaviour.Http;
-internal static class MockHttpMessageHandlerExtensions
+namespace Wurs.Test.Utilities.Moq;
+internal static class HttpMessageHandlerExtensions
 {
     internal static HttpMessageHandlerContext SetupContext(this Mock<HttpMessageHandler> mockHandler)
     {

@@ -1,15 +1,15 @@
 ﻿using Moq;
 using Wurs.Test.Utilities.Helpers.Http;
 
-namespace Wurs.Test.Utilities.Moq.Behaviour;
+namespace Wurs.Test.Utilities.Moq;
 
-public class HttpClientFactoryMockBuilder : HttpClientFactoryBuilderBase<HttpClientFactoryMockBuilder, Mock<IHttpClientFactory>>
+public class HttpClientFactory : HttpClientFactoryBuilderBase<HttpClientFactory, Mock<IHttpClientFactory>>
 {
     private readonly Mock<IHttpClientFactory> _factory;
 
     protected override Mock<IHttpClientFactory> Factory => _factory;
 
-    public HttpClientFactoryMockBuilder()
+    public HttpClientFactory()
     {
         _factory = new Mock<IHttpClientFactory>();
     }

@@ -3,13 +3,13 @@ using Wurs.Test.Utilities.Helpers.Http;
 
 namespace Wurs.Test.Utilities.NSubstitute;
 
-public class HttpClientFactorySubstituteBuilder : HttpClientFactoryBuilderBase<HttpClientFactorySubstituteBuilder, IHttpClientFactory>
+public class HttpClientFactory : HttpClientFactoryBuilderBase<HttpClientFactory, IHttpClientFactory>
 {
     private readonly IHttpClientFactory _factory;
 
     protected override IHttpClientFactory Factory => _factory;
 
-    public HttpClientFactorySubstituteBuilder()
+    public HttpClientFactory()
     {
         _factory = Substitute.For<IHttpClientFactory>();
     }

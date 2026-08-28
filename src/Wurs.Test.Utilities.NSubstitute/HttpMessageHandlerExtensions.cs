@@ -22,7 +22,14 @@ internal static class HttpMessageHandlerExtensions
             .Invoke(handler, [null, null])
             .ReturnsForAnyArgs(x =>
             {
-                return QueueResponseHelper.DequeueResponse(context, x.ArgAt<HttpRequestMessage>(0));
+                try
+                {
+                    return Task.FromResult(QueueResponseHelper.DequeueResponse(context, x.ArgAt<HttpRequestMessage>(0)));
+                }
+                catch (Exception ex)
+                {
+                    return Task.FromException<HttpResponseMessage>(ex);
+                }
             });
 
         return context;
